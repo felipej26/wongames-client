@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Menu2 as MenuIcon } from '@styled-icons/remix-fill/Menu2'
 import { Search as SearchIcon } from '@styled-icons/material-outlined/Search'
 import { ShoppingCart as ShoppingCartIcon } from '@styled-icons/material-outlined/ShoppingCart'
@@ -44,9 +46,13 @@ const Menu = ({ username }: MenuProps) => {
           <ShoppingCartIcon aria-label="Open Shopping Cart" />
         </S.IconWrapper>
 
-        <MediaMatch greaterThan="medium">
-          {!username && <Button>Sign In</Button>}
-        </MediaMatch>
+        {!username && (
+          <MediaMatch greaterThan="medium">
+            <Link href="/sign-in" passHref>
+              <Button as="a">Sign In</Button>
+            </Link>
+          </MediaMatch>
+        )}
       </S.MenuGroup>
 
       <S.MenuFull aria-hidden={!isOpen} isOpen={isOpen}>
@@ -66,13 +72,19 @@ const Menu = ({ username }: MenuProps) => {
 
         {!username && (
           <S.RegisterBox>
-            <Button fullWidth size="large">
-              Log in now
-            </Button>
+            <Link href="/sign-in" passHref>
+              <Button fullWidth size="large" as="a">
+                Sign in
+              </Button>
+            </Link>
+
             <span>or</span>
-            <S.CreateAccount href="#" title="Sign up">
-              Sign up
-            </S.CreateAccount>
+
+            <Link href="/sign-in" passHref>
+              <S.CreateAccount href="#" title="Sign up">
+                Sign up
+              </S.CreateAccount>
+            </Link>
           </S.RegisterBox>
         )}
       </S.MenuFull>
