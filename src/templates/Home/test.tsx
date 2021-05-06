@@ -6,7 +6,7 @@ import bannerMock from 'components/BannerSlider/mock'
 import gamesMock from 'components/GameCardSlider/mock'
 import highlightMock from 'components/Highlight/mock'
 
-import Home from '.'
+import Home, { HomeTemplateProps } from '.'
 
 const props = {
   banners: bannerMock,
@@ -14,11 +14,11 @@ const props = {
   mostPopularHighlight: highlightMock,
   mostPopularGames: [gamesMock[0]],
   upcomingGames: [gamesMock[0]],
-  upcomingHighligth: highlightMock,
+  upcomingHighlight: highlightMock,
   upcomingMoreGames: [gamesMock[0]],
   freeGames: [gamesMock[0]],
-  freeHighligth: highlightMock
-}
+  freeHighlight: highlightMock
+} as HomeTemplateProps
 
 describe('<Home />', () => {
   it('should render menu and footer', () => {

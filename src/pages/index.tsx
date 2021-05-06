@@ -20,6 +20,6 @@ export function getStaticProps() {
       upcomingMoreGames: gamesMock,
       freeGames: gamesMock,
       freeHighlight: highlightMock
-    }
+    } as HomeTemplateProps
   }
 }
