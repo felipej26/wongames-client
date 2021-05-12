@@ -1,7 +1,6 @@
-import { render, screen } from '@testing-library/react'
 import { renderWithTheme } from 'utils/tests/helpers'
 
-import Form, { FormLink, FormWrapper } from '.'
+import { FormLink, FormWrapper } from '.'
 
 describe('<Form />', () => {
   it('should render the heading', () => {
