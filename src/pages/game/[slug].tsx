@@ -3,7 +3,6 @@ import { initializeApollo } from 'utils/apollo'
 
 import Game, { GameTemplateProps } from 'templates/Game'
 
-import galleryMock from 'components/Gallery/mock'
 import gamesMock from 'components/GameCardSlider/mock'
 import highlightMock from 'components/Highlight/mock'
 import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
@@ -13,6 +12,9 @@ import {
   QueryGameBySlugVariables
 } from 'graphql/generated/QueryGameBySlug'
 import { GetStaticProps } from 'next'
+import { QueryRecommended } from 'graphql/generated/QueryRecommended'
+import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
+import { gamesMapper } from 'utils/mappers'
 
 const apolloClient = initializeApollo()
 
@@ -52,6 +54,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const game = data.games[0]
 
+  const { data: recommended } = await apolloClient.query<QueryRecommended>({
+    query: QUERY_RECOMMENDED
+  })
+
   return {
     props: {
       revalidate: 60,
@@ -76,7 +82,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
       upcomingGames: gamesMock,
       upcomingHighlight: highlightMock,
-      recommendedGames: gamesMock
+      recommendedTitle: recommended.recommended?.section?.title,
+      recommendedGames: gamesMapper(recommended.recommended?.section?.games)
     }
   }
 }
