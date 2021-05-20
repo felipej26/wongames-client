@@ -3,7 +3,7 @@ import {
   QueryHome_banners,
   QueryHome_sections_freeGames_highlight
 } from 'graphql/generated/QueryHome'
-import { bannerMapper, gamesMapper, highlightMapper } from '.'
+import { bannerMapper, cartMapper, gamesMapper, highlightMapper } from '.'
 
 describe('bannerMapper()', () => {
   it('should return the correct format when mapped', () => {
@@ -27,36 +27,6 @@ describe('bannerMapper()', () => {
     expect(bannerMapper([banner])).toStrictEqual([
       {
         img: 'http://localhost:1337/image.jpg',
-        title: 'Banner title',
-        subtitle: 'Banner subtitle',
-        buttonLabel: 'button label',
-        buttonLink: 'button link',
-        ribbon: 'ribbon text',
-        ribbonColor: 'primary',
-        ribbonSize: 'small'
-      }
-    ])
-  })
-
-  it('should return the correct format when image is null', () => {
-    const banner = {
-      image: null,
-      title: 'Banner title',
-      subtitle: 'Banner subtitle',
-      button: {
-        label: 'button label',
-        link: 'button link'
-      },
-      ribbon: {
-        text: 'ribbon text',
-        color: 'primary',
-        size: 'small'
-      }
-    } as QueryHome_banners
-
-    expect(bannerMapper([banner])).toStrictEqual([
-      {
-        img: 'http://localhost:1337',
         title: 'Banner title',
         subtitle: 'Banner subtitle',
         buttonLabel: 'button label',
@@ -95,28 +65,6 @@ describe('gamesMapper()', () => {
       }
     ])
   })
-
-  it('should return the correct format when image is null', () => {
-    const game = {
-      id: '1',
-      name: 'game',
-      developers: [{ name: 'developer' }],
-      slug: 'game',
-      cover: null,
-      price: 10
-    } as QueryGames_games
-
-    expect(gamesMapper([game])).toStrictEqual([
-      {
-        id: '1',
-        title: 'game',
-        slug: 'game',
-        developer: 'developer',
-        img: 'http://localhost:1337',
-        price: 10
-      }
-    ])
-  })
 })
 
 describe('highlightMapper()', () => {
@@ -145,26 +93,28 @@ describe('highlightMapper()', () => {
       alignment: 'right'
     })
   })
+})
 
-  it('should return the correct format when images is null', () => {
-    const highlight = {
-      title: 'title',
-      subtitle: 'subtitle',
-      background: null,
-      floatImage: null,
-      buttonLabel: 'button label',
-      buttonLink: 'button link',
-      alignment: 'right'
-    } as QueryHome_sections_freeGames_highlight
+describe('cartMapper()', () => {
+  it('should return an empty array if no games', () => {
+    expect(cartMapper(null)).toStrictEqual([])
+  })
 
-    expect(highlightMapper(highlight)).toStrictEqual({
-      title: 'title',
-      subtitle: 'subtitle',
-      backgroundImage: 'http://localhost:1337',
-      floatImage: 'http://localhost:1337',
-      buttonLabel: 'button label',
-      buttonLink: 'button link',
-      alignment: 'right'
-    })
+  it('should return the correct format when mapped', () => {
+    const game = {
+      id: '1',
+      name: 'game',
+      cover: { url: '/image.jpg' },
+      price: 10
+    } as QueryGames_games
+
+    expect(cartMapper([game])).toStrictEqual([
+      {
+        id: '1',
+        title: 'game',
+        img: 'http://localhost:1337/image.jpg',
+        price: '$10.00'
+      }
+    ])
   })
 })
