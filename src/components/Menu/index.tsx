@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import { Menu2 as MenuIcon } from '@styled-icons/remix-fill/Menu2'
 import { Search as SearchIcon } from '@styled-icons/material-outlined/Search'
-import { ShoppingCart as ShoppingCartIcon } from '@styled-icons/material-outlined/ShoppingCart'
 import { Close as CloseIcon } from '@styled-icons/material-outlined/Close'
 
 import Logo from 'components/Logo'
@@ -15,7 +14,7 @@ import CartIcon from 'components/CartIcon'
 import UserDropdown from 'components/UserDropdown'
 
 export type MenuProps = {
-  username?: string
+  username?: string | null | undefined
 }
 
 const Menu = ({ username }: MenuProps) => {
