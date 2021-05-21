@@ -17,7 +17,7 @@ const FormSignUp = () => {
     password: ''
   })
 
-  const [createUser, { data }] = useMutation(MUTATION_REGISTER)
+  const [createUser] = useMutation(MUTATION_REGISTER)
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
