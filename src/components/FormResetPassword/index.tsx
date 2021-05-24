@@ -7,12 +7,12 @@ import { FormWrapper, FormLoading, FormError } from 'components/Form'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
 
-import { FieldErrors } from 'utils/validations'
+import { FieldErrors, resetValidate } from 'utils/validations'
 
 const FormResetPassword = () => {
   const [formError, setFormError] = useState('')
   const [fieldError, setFieldError] = useState<FieldErrors>({})
-  const [values, setValues] = useState({ password: '', confirmPassword: '' })
+  const [values, setValues] = useState({ password: '', confirm_password: '' })
   const [loading, setLoading] = useState(false)
   const routes = useRouter()
   const { push, query } = routes
@@ -21,13 +21,7 @@ const FormResetPassword = () => {
     event.preventDefault()
     setLoading(true)
 
-    const result = await signIn('credentials', {
-      ...values,
-      redirect: false,
-      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
-    })
-
-    const errors = {}
+    const errors = resetValidate(values)
 
     if (Object.keys(errors).length) {
       setFieldError(errors)
@@ -37,12 +31,17 @@ const FormResetPassword = () => {
 
     setFieldError({})
 
+    const result = await signIn('credentials', {
+      ...values,
+      redirect: false,
+      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
+    })
+
     if (result?.url) {
       return push(result.url)
     }
 
     setLoading(false)
-
     setFormError('username or password is invalid')
   }
 

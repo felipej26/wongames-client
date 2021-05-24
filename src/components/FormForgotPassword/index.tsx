@@ -7,7 +7,7 @@ import { FormWrapper, FormLoading, FormError } from 'components/Form'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
 
-import { FieldErrors } from 'utils/validations'
+import { FieldErrors, forgotValidate } from 'utils/validations'
 
 const FormForgotPassword = () => {
   const [formError, setFormError] = useState('')
@@ -21,13 +21,7 @@ const FormForgotPassword = () => {
     event.preventDefault()
     setLoading(true)
 
-    const result = await signIn('credentials', {
-      ...values,
-      redirect: false,
-      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
-    })
-
-    const errors = {}
+    const errors = forgotValidate(values)
 
     if (Object.keys(errors).length) {
       setFieldError(errors)
@@ -36,6 +30,12 @@ const FormForgotPassword = () => {
     }
 
     setFieldError({})
+
+    const result = await signIn('credentials', {
+      ...values,
+      redirect: false,
+      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
+    })
 
     if (result?.url) {
       return push(result.url)

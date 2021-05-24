@@ -23,12 +23,6 @@ const FormSignIn = () => {
     event.preventDefault()
     setLoading(true)
 
-    const result = await signIn('credentials', {
-      ...values,
-      redirect: false,
-      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
-    })
-
     const errors = signInValidate(values)
 
     if (Object.keys(errors).length) {
@@ -39,12 +33,17 @@ const FormSignIn = () => {
 
     setFieldError({})
 
+    const result = await signIn('credentials', {
+      ...values,
+      redirect: false,
+      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
+    })
+
     if (result?.url) {
       return push(result.url)
     }
 
     setLoading(false)
-
     setFormError('username or password is invalid')
   }
 
