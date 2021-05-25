@@ -1,22 +1,29 @@
 import { useState } from 'react'
-import { signIn } from 'next-auth/client'
+import { useRouter } from 'next/router'
 import {
   Email,
   ErrorOutline,
   CheckCircleOutline
 } from '@styled-icons/material-outlined'
 
-import { FormWrapper, FormLoading, FormError, FormSuccess } from 'components/Form'
+import {
+  FormWrapper,
+  FormLoading,
+  FormError,
+  FormSuccess
+} from 'components/Form'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
 
 import { FieldErrors, forgotValidate } from 'utils/validations'
 
 const FormForgotPassword = () => {
+  const { query } = useRouter()
+
   const [success, setSuccess] = useState(false)
   const [formError, setFormError] = useState('')
   const [fieldError, setFieldError] = useState<FieldErrors>({})
-  const [values, setValues] = useState({ email: '' })
+  const [values, setValues] = useState({ email: (query.email as string) || '' })
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -78,6 +85,7 @@ const FormForgotPassword = () => {
               placeholder="Email"
               type="text"
               error={fieldError?.email}
+              initialValue={query.email as string}
               onInputChange={(v) => handleInput('email', v)}
               icon={<Email />}
             />
