@@ -10,7 +10,7 @@ import {
   MUTATION_UPDATE_WISHLIST
 } from 'graphql/mutations/wishlist'
 
-type WishlistContextData = {
+export type WishlistContextData = {
   items: GameCardProps[]
   isInWishlist: (id: string) => boolean
   addToWishlist: (id: string) => void
