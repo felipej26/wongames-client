@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CardElement } from '@stripe/react-stripe-js'
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
 
@@ -18,6 +18,8 @@ export type PaymentFormProps = {
 
 const PaymentForm = ({ session }: PaymentFormProps) => {
   const { items } = useCart()
+  const stripe = useStripe()
+  const elements = useElements()
 
   const [error, setError] = useState<string | null>()
   const [loading, setLoading] = useState(false)
@@ -28,7 +30,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
   useEffect(() => {
     async function setPaymentMode() {
       if (items.length > 0) {
-        const data = await createPaymentIntent({ items, token: session.jwt })
+        const data = await createPaymentIntent({ items, token: session?.jwt })
 
         if (data.freeGames) {
           setFreeGames(true)
@@ -56,6 +58,20 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setLoading(true)
+
+    const payload = await stripe?.confirmCardPayment(clientSecret, {
+      payment_method: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+        card: elements!.getElement(CardElement)!
+      }
+    })
+
+    if (payload?.error) {
+      setError(`Payment failer ${payload?.error.message}`)
+    } else {
+      setError(null)
+    }
+    setLoading(false)
   }
 
   return (

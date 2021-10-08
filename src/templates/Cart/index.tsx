@@ -40,7 +40,7 @@ const Cart = ({
           <CartList />
 
           <Elements stripe={stripe}>
-            <PaymentForm session={session.jwt || ''} />
+            <PaymentForm session={session} />
           </Elements>
         </S.Content>
 
