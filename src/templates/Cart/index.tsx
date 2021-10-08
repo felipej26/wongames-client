@@ -14,14 +14,17 @@ import CartList, { CartListProps } from 'components/CartList'
 import PaymentForm from 'components/PaymentForm'
 
 export type CartProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  session: any
   recommendedTitle: string
   recommendedGames: GameCardProps[]
   recommendedHighlight: HighlightProps
 } & CartListProps
 
-const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+const stripe = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
 
 const Cart = ({
+  session,
   recommendedTitle,
   recommendedGames,
   recommendedHighlight
@@ -37,7 +40,7 @@ const Cart = ({
           <CartList />
 
           <Elements stripe={stripe}>
-            <PaymentForm />
+            <PaymentForm session={session.jwt || ''} />
           </Elements>
         </S.Content>
 
