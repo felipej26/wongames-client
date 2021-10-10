@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { PaymentIntent, StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
+import Link from 'next/link'
 
 import { useCart } from 'hooks/use-cart'
 import { createPayment, createPaymentIntent } from 'utils/stripe/methods'
@@ -127,9 +128,11 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
         </S.Body>
 
         <S.Footer>
-          <Button as="a" fullWidth minimal>
-            Continue shopping
-          </Button>
+          <Link href="/" passHref>
+            <Button as="a" fullWidth minimal>
+              Continue shopping
+            </Button>
+          </Link>
 
           <Button
             fullWidth
