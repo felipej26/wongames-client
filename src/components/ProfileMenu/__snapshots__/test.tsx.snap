@@ -132,18 +132,20 @@ exports[`<ProfileMenu /> should render the menu 1`] = `
   <a
     class="c1"
     role="button"
-    title="Sign out"
   >
     <svg
-      aria-hidden="true"
       class="c2"
       fill="currentColor"
       focusable="false"
       height="24"
+      role="img"
       viewBox="0 0 24 24"
       width="24"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <title>
+        Sign out
+      </title>
       <path
         d="M0 0h24v24H0V0z"
         fill="none"
