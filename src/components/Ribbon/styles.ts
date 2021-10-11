@@ -42,12 +42,13 @@ const wrapperModifiers = {
 
 export const Wrapper = styled.div<Omit<RibbonProps, 'children'>>`
   ${({ theme, color, size }) => css`
+    align-items: center;
+    color: ${theme.colors.white};
+    display: flex;
+    font-weight: ${theme.font.bold};
     position: absolute;
     top: ${theme.spacings.xsmall};
-    display: flex;
-    align-items: center;
-    font-weight: ${theme.font.bold};
-    color: ${theme.colors.white};
+    z-index: ${theme.layers.base};
 
     &::before {
       content: '';
