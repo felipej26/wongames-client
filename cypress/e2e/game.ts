@@ -13,5 +13,32 @@ describe('Game Page', () => {
 
     // gallery
     cy.findAllByRole('button', { name: /thumb \-/i }).should('have.length.gt', 0)
+
+    // content
+    cy.getByDataCy('content').within(() => {
+      cy.findByRole('heading', { name: /description/i }).should('exist')
+    })
+
+    cy.getByDataCy('content').children().should('have.length.at.least', 2)
+
+    // Details
+    cy.getByDataCy('game-details').within(() => {
+      cy.findByRole('heading', { name: /game details/i }).should('exist')
+      cy.findByRole('heading', { name: /developer/i }).should('exist')
+      cy.findByRole('heading', { name: /release date/i }).should('exist')
+      cy.findByRole('heading', { name: /platforms/i }).should('exist')
+      cy.findByRole('heading', { name: /publisher/i }).should('exist')
+      cy.findByRole('heading', { name: /rating/i }).should('exist')
+      cy.findByRole('heading', { name: /genres/i }).should('exist')
+
+      cy.findAllByText(/cd projekt red/i).should('have.length', 2)
+      cy.findByText(/dec 8, 2020/i).should('exist')
+      cy.findByRole('img', { name: /windows/i }).should('exist')
+      cy.findByText(/free/i).should('exist')
+      cy.findByText('Role-playing / Action / Sci-fi').should('exist')
+    })
+
+    cy.shouldRenderShowcase({ name: "Upcoming Games", hightlight: true})
+    cy.shouldRenderShowcase({ name: "You may like these games", hightlight: false})
   });
 });
