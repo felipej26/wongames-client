@@ -16,7 +16,7 @@ describe('bannerMapper()', () => {
   it('should return the correct format when mapped', () => {
     const banner = {
       image: {
-        url: '/image.jpg'
+        url: 'http://localhost:1337/image.jpg'
       },
       title: 'Banner title',
       subtitle: 'Banner subtitle',
