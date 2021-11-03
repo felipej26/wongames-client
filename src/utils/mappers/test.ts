@@ -16,7 +16,7 @@ describe('bannerMapper()', () => {
   it('should return the correct format when mapped', () => {
     const banner = {
       image: {
-        url: 'http://localhost:1337/image.jpg'
+        url: '/image.jpg'
       },
       title: 'Banner title',
       subtitle: 'Banner subtitle',
@@ -33,7 +33,7 @@ describe('bannerMapper()', () => {
 
     expect(bannerMapper([banner])).toStrictEqual([
       {
-        img: 'http://localhost:1337/image.jpg',
+        img: '/image.jpg',
         title: 'Banner title',
         subtitle: 'Banner subtitle',
         buttonLabel: 'button label',
@@ -67,7 +67,7 @@ describe('gamesMapper()', () => {
         title: 'game',
         slug: 'game',
         developer: 'developer',
-        img: 'http://localhost:1337/image.jpg',
+        img: '/image.jpg',
         price: 10
       }
     ])
@@ -93,8 +93,8 @@ describe('highlightMapper()', () => {
     expect(highlightMapper(highlight)).toStrictEqual({
       title: 'title',
       subtitle: 'subtitle',
-      backgroundImage: 'http://localhost:1337/image.jpg',
-      floatImage: 'http://localhost:1337/floatImage.jpg',
+      backgroundImage: '/image.jpg',
+      floatImage: '/floatImage.jpg',
       buttonLabel: 'button label',
       buttonLink: 'button link',
       alignment: 'right'
@@ -119,7 +119,7 @@ describe('cartMapper()', () => {
       {
         id: '1',
         title: 'game',
-        img: 'http://localhost:1337/image.jpg',
+        img: '/image.jpg',
         price: '$10.00'
       }
     ])
@@ -173,7 +173,7 @@ describe('ordersMapper()', () => {
             title: 'game',
             downloadLink:
               'https://wongames.com/game/download/yuYT56Tgh431LkjhNBgdf',
-            img: 'http://localhost:1337/image.jpg',
+            img: '/image.jpg',
             price: '$10.00'
           }
         ]
@@ -223,7 +223,7 @@ describe('ordersMapper()', () => {
             title: 'game',
             downloadLink:
               'https://wongames.com/game/download/yuYT56Tgh431LkjhNBgdf',
-            img: 'http://localhost:1337/image.jpg',
+            img: '/image.jpg',
             price: '$0.00'
           }
         ]
