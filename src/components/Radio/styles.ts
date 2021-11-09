@@ -35,7 +35,7 @@ export const Input = styled.input`
       opacity: 0;
       position: absolute;
     }
-    
+
     &:checked {
       &:before {
         opacity: 1;

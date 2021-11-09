@@ -1,4 +1,3 @@
-import { truncate, truncateSync } from 'fs'
 import { CartContextDefaultValues } from 'hooks/use-cart'
 import { render, screen } from 'utils/test-utils'
 

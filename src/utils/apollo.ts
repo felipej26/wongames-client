@@ -5,6 +5,7 @@ import apolloCache from './apolloCache'
 
 let apolloClient: ApolloClient<NormalizedCacheObject | null>
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createApolloClient(session?: any) {
   const httpLink = new HttpLink({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`
@@ -23,6 +24,7 @@ function createApolloClient(session?: any) {
   })
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function initializeApollo(initialState = null, session?: any) {
   const apolloClientGlobal = apolloClient ?? createApolloClient(session)
 
@@ -36,6 +38,7 @@ export function initializeApollo(initialState = null, session?: any) {
   return apolloClient
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useApollo(initialState = null, session?: any) {
   const store = useMemo(
     () => initializeApollo(initialState, session),
